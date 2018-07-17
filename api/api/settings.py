@@ -79,6 +79,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'TEST' : {
+            'NAME' : 'testdb.sqlite3'
+        }
     }
 }
 
@@ -122,3 +125,15 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 ASGI_APPLICATION = 'api.routing.application'
+
+CHANNEL_LAYERS = {
+    'default' : {
+        'BACKEND' : 'channels_redis.core.RedisChannelLayer',
+        'CONFIG' : {
+            "hosts" : [('127.0.0.1',6379)],
+        },
+        'TEST_CONFIG' : {
+            'hosts' : [('localhost',6379)],
+        },
+    },
+}
