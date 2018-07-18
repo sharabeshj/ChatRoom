@@ -37,7 +37,7 @@ function RegularButton({ ...props }) {
       [className]: className
     });
     return (
-      <Button {...rest} className={btnClasses}>
+      <Button onClick = { props.handleSubmit } {...rest} className={btnClasses}>
         {children}
       </Button>
     );

@@ -27,7 +27,7 @@ class Message extends React.Component {
                         />
                     </GridItem>
                     <GridItem xs = {1} sm = {1} md = {1} lg = {1}>
-                        <Button>Send</Button>
+                        <Button handleSubmit = {this.props.handleSubmit}>Send</Button>
                     </GridItem>
                 </GridContainer>
             </footer>
