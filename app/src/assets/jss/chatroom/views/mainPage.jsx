@@ -33,6 +33,29 @@ const mainPageStyle = {
     },
     textCenter: {
         textAlign: "center"
+    },
+    chats : {
+        boxSizing : "border-box",
+        padding : "0 20px",
+        margin : "10px 0 0",
+        height : "510 px",
+        overflowY : "scroll"
+    },
+    chat : {
+        background : "rgba(255, 255,  255, 0.8)",
+        position : "relative",
+        padding : "0 20px",
+        fontSize : "14px",
+        borderRadius : "10px",
+        listStyle : "none",
+        float : "left",
+        clear : "both",
+        margin : "10px 0",
+        maxWidth : "200px"
+    },
+    chatRight : {
+        float : "right",
+        clear : "both"
     }
 };
 

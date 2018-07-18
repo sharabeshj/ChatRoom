@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
-import ToolBar from '@material-ui/core/Toolbar';
+import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
 import Hidden from '@material-ui/core/Hidden';
@@ -22,7 +22,7 @@ class Header extends React.Component {
         this.state = {
             mobileOpen : false
         };
-        this.handleDrawerToggle();
+        this.handleDrawerToggle.bind(this);
     }
 
     handleDrawerToggle(){
@@ -46,7 +46,7 @@ class Header extends React.Component {
             [classes.fixed] : fixed
         });
         const brandComponent = (
-            <Button classNames = {appBarClasses}>
+            <Button classNames = {classes.title}>
                 {brand}
             </Button>
         );

@@ -1,0 +1,32 @@
+version: '2'
+
+services: 
+  redis: 
+    container_name: redis
+    restart: always
+    image :  redis:2.8
+    expose: 
+      - "6379"
+
+  api: 
+    container_name: api
+    environment:
+
+    build :
+      context: ./api
+      dockerfile : Dockerfile
+    links:
+      - redis:redis
+    ports: 
+      - "8000:8000"
+    
+  app:
+    container_name: app
+    build: 
+      context: ./app
+      dockerfile: Dockerfile
+    ports:
+      - "3000:80"
+    links: 
+      - api
+  
