@@ -10,17 +10,25 @@ import Auxillary from '../hoc/Auxillary/Auxillary';
 
 import mainPageStyle from '../assets/jss/chatroom/views/mainPage';
 
+let socket = null;
+
 class MainPage extends React.Component {
     constructor(props){
         super(props);
         this.state = {
             chats : [],
             username : "xxx",
-            text : ""
-        }
+            text : null
+        };
     }
     componentDidMount(){
         this.scrollToBot();
+        socket = new WebSocket('ws://127.0.0.1:8000/api/new');
+        console.log(socket)
+        socket.onmessage = e => {
+            const data = JSON.parse(e.data);
+            this.setState({ chats : [...this.state.chats,data] })
+        }
     }
     componentDidUpdate(){
         this.scrollToBot();
@@ -31,19 +39,19 @@ class MainPage extends React.Component {
     submitMessage = e => {
         e.preventDefault();
         
-        const oldChat = this.state.chats
-        const newChat = oldChat.concat([{
+        socket.send(JSON.stringify({
             username : "xyz",
-            content : <p>{this.state.text}</p>
-        }])
-
+            content : `${this.state.text}`
+        }))
         this.setState({
-            chats : newChat,
-            text : ""
+            text : null
         });
     }
     handleTextChange = e => {
         this.setState({ text : e.target.value })
+    }
+    componentWillUnmount(){
+        socket.close()
     }
     render(){
         const { classes,...rest } = this.props;
