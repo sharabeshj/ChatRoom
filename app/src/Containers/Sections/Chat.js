@@ -13,10 +13,10 @@ import mainPage from '../../assets/jss/chatroom/views/mainPage';
 const Chat = ({chat,username,...props}) => {
     const chatClasses = classNames({
         [props.classes.chat] : true,
-        [props.classes.chatRight] : username === chat.username ? true : false
+        [props.classes.chatRight] : username === chat.username
     })
     return (
-        <li className = {chatClasses}>
+        <li key = { chat.time } className = {chatClasses}>
             <Paper>
                 <Typography variant = "subheading" >
                     {chat.username}

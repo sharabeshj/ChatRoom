@@ -18,6 +18,7 @@ class Message extends React.Component {
                         <CustomInput 
                             handleTextChange = {this.props.handleTextChange}
                             id = "regular"
+                            content = {this.props.content}
                             inputProps = {{
                                 placeholder : "Enter message"
                             }}

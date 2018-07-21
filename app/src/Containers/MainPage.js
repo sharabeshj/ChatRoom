@@ -18,16 +18,18 @@ class MainPage extends React.Component {
         this.state = {
             chats : [],
             username : "xxx",
-            text : null
+            text : '',
+            time : ''
         };
     }
     componentDidMount(){
         this.scrollToBot();
         socket = new WebSocket('ws://127.0.0.1:8000/api/new');
-        console.log(socket)
+        // console.log(socket)
         socket.onmessage = e => {
             const data = JSON.parse(e.data);
-            this.setState({ chats : [...this.state.chats,data] })
+            
+            this.setState({ chats : [...this.state.chats,data]})
         }
     }
     componentDidUpdate(){
@@ -38,14 +40,16 @@ class MainPage extends React.Component {
     }
     submitMessage = e => {
         e.preventDefault();
-        
+        const time = new Date();
         socket.send(JSON.stringify({
-            username : "xyz",
-            content : `${this.state.text}`
-        }))
+            username : `${this.state.username}`,
+            content : `${this.state.text}`,
+            time : time.getTime()
+        }));    
         this.setState({
-            text : null
+            text : ''
         });
+        console.log(this.state)
     }
     handleTextChange = e => {
         this.setState({ text : e.target.value })
@@ -62,10 +66,10 @@ class MainPage extends React.Component {
                     <NavBar />
                     <ul className = { classes.chats } ref = "chats">
                         {
-                            chats.map((chat) => <Chat chat = {chat} username = {username}/>)
+                            chats.map((chat) => <Chat key = {chat.time} chat = {chat} username = {username}/>)
                         }
                     </ul>
-                    <Message handleSubmit = {this.submitMessage} handleTextChange = {this.handleTextChange}/>
+                    <Message handleSubmit = {this.submitMessage} handleTextChange = {this.handleTextChange} content = {this.state.text}/>
                 </div>
             </Auxillary>
         );
